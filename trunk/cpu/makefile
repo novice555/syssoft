@@ -1,0 +1,2 @@
+all:
+	gcc cpu.o 
