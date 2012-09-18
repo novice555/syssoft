@@ -9,7 +9,7 @@ int savememory(void)
     {
         for(i=0; i<MAX_ADDRESS; i+=3)
         {
-            fprintf(dumpfile,"%02X %02X %02X\n", memory[i], memory[i+1], memory[i+2]);
+            fprintf(dumpfile,"%04X | %02X %02X %02X\n", i, memory[i], memory[i+1], memory[i+2]);
         }
         fclose(dumpfile);
     }
