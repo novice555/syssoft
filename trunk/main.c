@@ -1,6 +1,6 @@
 #include<stdio.h>
 int main()
 {
-    assambler_pass1();
+    assambler_passone();
     return 0;
 }
