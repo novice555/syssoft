@@ -9,33 +9,33 @@ int split_assambly(char *line, int curr_address)
     if(line[0]==' ' || line[0]=='\t')
     {
         token = strtok(line, delimiter);
-        strcpy(list[instruction_count].Mnemonic, token);
+        strcpy(list[N_Instruction].Mnemonic, token);
         token = strtok(NULL, delimiter);
         if(token!=NULL)
         {
-            strcpy(list[instruction_count].Parameter, token);  
+            strcpy(list[N_Instruction].Parameter, token);  
         //printf("%s\t",token);
         }
         else
         {
                 //printf("%s\t",token);
-            strcpy(list[instruction_count].Parameter,"");
+            strcpy(list[N_Instruction].Parameter,"");
                 // printf("1%s\t",str2); 
         }
     }
     else
     {
         token = strtok(line,delimiter);
-        strcpy(list[instruction_count].Symbol, token);
+        strcpy(list[N_Instruction].Symbol, token);
         token = strtok(NULL, delimiter);
-        strcpy(list[instruction_count].Mnemonic, token);                
+        strcpy(list[N_Instruction].Mnemonic, token);                
         token = strtok(NULL, delimiter);
         if(token!=NULL)
-            strcpy(list[instruction_count].Parameter, token); 
+            strcpy(list[N_Instruction].Parameter, token); 
         else
-            strcpy(list[instruction_count].Parameter, "");
+            strcpy(list[N_Instruction].Parameter, "");
     }
-    list[instruction_count].Address = curr_address;
-    instruction_count++;
+    list[N_Instruction].Address = curr_address;
+    N_Instruction++;
     return 0;
 }

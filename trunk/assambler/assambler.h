@@ -13,8 +13,8 @@ typedef struct {
 } assambly;
 extern assambly list[MaxArray];
 extern dict SymbolTable[MaxArray];
-extern int instruction_count;
-extern int symbol_count;
+extern int N_Instruction;
+extern int N_Symbol;
 extern char ProgramName[Maxlength];
 extern int ProgramLength;
 extern FILE *fptr;

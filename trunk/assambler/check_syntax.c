@@ -19,7 +19,7 @@ int is_blank_or_comment(char *pstr)
 int is_symboltable(char *sym)
 {
     int i;
-    for(i=0; i<symbol_count; i++)
+    for(i=0; i<N_Symbol; i++)
         if(strcmp(sym, SymbolTable[i].name)==0)
             return 1;
     return 0;

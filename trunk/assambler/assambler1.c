@@ -27,8 +27,8 @@ void add_symboltable(char *sym, int address);
 
 assambly list[MaxArray];
 dict SymbolTable[MaxArray];
-int instruction_count = 0;
-int symbol_count = 0;
+int N_Instruction = 0;
+int N_Symbol = 0;
 char ProgramName[Maxlength];
 int ProgramLength;
 FILE *fptr = NULL;
@@ -63,31 +63,31 @@ int assambler_passone(char *asm_name)
     {
         printf("%s",line_buffer);
         split_assambly(line_buffer, RunAddress);
-        if(strcmp(list[instruction_count-1].Mnemonic,"END")==0)
+        if(strcmp(list[N_Instruction-1].Mnemonic,"END")==0)
             break;
 
         //check duplicate symbol
-        if(strcmp(list[instruction_count-1].Symbol, "")!=0)
+        if(strcmp(list[N_Instruction-1].Symbol, "")!=0)
         {
-            if(is_symboltable(list[instruction_count-1].Symbol))
+            if(is_symboltable(list[N_Instruction-1].Symbol))
                 return 4;
             else
                 //add symbol to symboltable
-                add_symboltable(list[instruction_count-1].Symbol, RunAddress);
+                add_symboltable(list[N_Instruction-1].Symbol, RunAddress);
         }
         //check mnemonic
- //       printf("%d\n",instruction_count);
-        inst_length = search_mnemonic(list[instruction_count-1].Mnemonic, list[instruction_count-1].Parameter);
+ //       printf("%d\n",N_Instruction);
+        inst_length = search_mnemonic(list[N_Instruction-1].Mnemonic, list[N_Instruction-1].Parameter);
         if(inst_length==0)
             return 5;
         else
             RunAddress += inst_length;
     }
-    ProgramLength = StrToInt(list[instruction_count-1].Parameter) - StrToInt(list[0].Parameter);
+    ProgramLength = StrToInt(list[N_Instruction-1].Parameter) - StrToInt(list[0].Parameter);
     int j;
-    for(j=0;j<instruction_count;j++)
+    for(j=0;j<N_Instruction;j++)
         printf("%d\t%s\t%s\t%s\t%04X\t\n",j+1,list[j].Symbol,list[j].Mnemonic, list[j].Parameter, list[j].Address);
-    printf("%d\n", instruction_count);
+    printf("%d\n", N_Instruction);
     return 0;
 
 }
