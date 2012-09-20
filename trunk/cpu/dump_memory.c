@@ -7,7 +7,7 @@ int savememory(void)
     dumpfile = fopen("memdump.txt","w");
     if(dumpfile!=NULL)
     {
-        for(i=0; i<MAX_ADDRESS; i+=3)
+        for(i=0; i<MAX_ADDRESS-2; i+=3)
         {
             fprintf(dumpfile,"%04X | %02X %02X %02X\n", i, memory[i], memory[i+1], memory[i+2]);
         }

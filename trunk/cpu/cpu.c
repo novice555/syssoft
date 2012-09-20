@@ -11,6 +11,7 @@
 
 /*function init*/
 int cpu(void);
+int load_bsl(void);
 void fetch_decode(void);
 int execute(void);
 void savememory(void);
@@ -37,17 +38,16 @@ int cpu(void)
     int i;
     char a;
     file_device_init();
+    load_bsl();
     while(rpc<MAX_ADDRESS-1)
     {
         fetch_decode();
         rpc += 3;
-        execute();
+        if(execute())
+            return 1;
         register_overflow();
     }
     file_device_close();
-    
-    if(device_output==NULL)
-        printf("asdasasdasdasd\n");
     savememory();
     return 0;
 }
