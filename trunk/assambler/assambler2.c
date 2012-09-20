@@ -139,9 +139,10 @@ void Get_Other_Object_Code( assambly Source, int N_Line ){
 	} else if( strcmp( Source.Mnemonic, "BYTE" ) == 0 ){
 		strncpy( result, &Source.Parameter[2], len - 3 );
 		if( Source.Parameter[0] == 'X' ){
-			pEnd = &result[ strlen(result) - 1 ];
-			Object_Code = strtol( result, &pEnd, 16 );
-			sprintf( Value_Object_Code[N_Line], "%lX", Object_Code );	
+            //printf("%s\n", result);
+			//pEnd = &result[ strlen(result) - 1 ];
+			//Object_Code = strtol( result, &pEnd, 16 );
+			sprintf( Value_Object_Code[N_Line], "%s",result );
 		} else if( Source.Parameter[0] == 'C' ){
 			for(i = 0; i < strlen( result ); i++){
 				tmp = result[i];
@@ -197,14 +198,14 @@ void Write_Object_File(){
 		Start_Line = N_Line;
 		while( strcmp( Value_Object_Code[N_Line], "RES") != 0 && N_Line < N_Instruction - 1 ){
 			Sum_Word += strlen( Value_Object_Code[N_Line] );
-			if( Sum_Word > 30 ){
+			if( Sum_Word > 60 ){
 				Sum_Word -= strlen( Value_Object_Code[N_Line] );
 				break;	
 			}
 			N_Line++;
 		}
 		End_Line = --N_Line;
-		fprintf( Object_File, "T%06X%02X", list[N_Line].Address, Sum_Word );
+		fprintf( Object_File, "T%06X%02X", list[Start_Line].Address,Sum_Word/2);
 		for( Line = Start_Line; Line <= End_Line; Line++ ){
 			fprintf( Object_File, "%s", Value_Object_Code[Line]);
 		}

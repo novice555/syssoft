@@ -85,9 +85,13 @@ int assambler_passone(char *asm_name)
     }
     ProgramLength = StrToInt(list[N_Instruction-1].Parameter) - StrToInt(list[0].Parameter);
     int j;
-    for(j=0;j<N_Instruction;j++)
+    for(j=0; j<N_Instruction; j++)
         printf("%d\t%s\t%s\t%s\t%04X\t\n",j+1,list[j].Symbol,list[j].Mnemonic, list[j].Parameter, list[j].Address);
     printf("%d\n", N_Instruction);
+    for(j=0; j<N_Symbol; j++)
+        printf("%s\t%X\t\n", SymbolTable[j].name, SymbolTable[j].value);
+    printf("%d %d\n",N_Instruction,N_Symbol);
+        
     return 0;
 
 }
