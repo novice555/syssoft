@@ -83,6 +83,9 @@ int assambler_passone(char *asm_name)
         else
             RunAddress += inst_length;
     }
+    if(strcmp(list[N_Instruction-1].Mnemonic, "END")!=0)
+        return 3;
+
     ProgramLength = StrToInt(list[N_Instruction-1].Parameter) - StrToInt(list[0].Parameter);
     int j;
     for(j=0; j<N_Instruction; j++)

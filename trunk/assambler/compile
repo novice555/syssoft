@@ -1,2 +1,1 @@
-gcc -o $1 assambler1.c assambler2.c code_length.c run.c check_syntax.c split_code.c strtoint.c symboltable.c
-./a.out Input.txt
+gcc assambler1.c assambler2.c code_length.c run.c check_syntax.c split_code.c strtoint.c symboltable.c 

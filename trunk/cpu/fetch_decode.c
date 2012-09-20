@@ -33,10 +33,9 @@ void fetch_decode(void)
     while(num[1]!=0);
     address += num[2];
     */
-    
     address = ((num[1]&0x7F)<<8) + num[2];
-    path = (xbit)?rx+address:address;
-    path &= 0xFFF;      // over flow control
+    path = (xbit)?(rx+address):address;
+    path &= 0x7FFF;      // over flow control
     //printf("%d\n%d\n%d\n",opcode,xbit,address);
     //printf("%d\n",memory[rpc+1]);
 }

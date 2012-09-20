@@ -1,1 +1,1 @@
-gcc dump_memory.c init.c read_device.c test_device.c cpu.c execute.c load_mem.c run.c write_device.c fetch_decode.c save_mem.c load_bsl.c
+gcc dump_memory.c init.c read_device.c test_device.c cpu.c execute.c load_mem.c run.c write_device.c fetch_decode.c save_mem.c load_bsl.c debug.c

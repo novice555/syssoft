@@ -141,9 +141,15 @@ int execute(void)
         case 0xDC:
             write_device(memory[path], (ra&0x0000FF));
             break;
+       //break
+        case 0xFF:
+            return 10;
+            break;   
         default: 
             printf("CPU Error: Could not found opcode\n");
-            return 10;
+            printf("rpc= %06X\n", rpc);
+            return 11;
             break;
     }
+    return 0;
 }

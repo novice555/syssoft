@@ -14,11 +14,14 @@
 #include"cpu.h"
 int file_device_init(void)
 {
+    int check=0;
     if((device_input = fopen("code.o","r+"))==NULL)
-        return 1;
+        check = 1;
     if((device_output = fopen("output.txt","r+"))==NULL)
-        return 1;
-    return 0;
+        check = 1;
+    if((device_loader = fopen("loader.mac","r+"))==NULL)
+        check = 1;
+    return check;
 }
 
 int file_device_close(void)

@@ -5,7 +5,7 @@
 FILE *fp;
 int load_bsl(void)
 {
-    char buffer[3000];
+    char buffer[10000];
     char *pEnd;
     char *pStart;
     char base16[3];
@@ -36,5 +36,5 @@ int load_bsl(void)
         memory[x+count] = tmp;
         count++;
     }
-    rpc = 0x7000;
+    rpc = entry;
 }

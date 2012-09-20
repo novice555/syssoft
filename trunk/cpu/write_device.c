@@ -10,9 +10,13 @@
 #include"cpu.h"
 void write_device(int device_id, int c)
 {
-    if(device_id==0xF1)
+    if(device_id==0x04)
         fputc(c, device_input);
     else if(device_id==0x05)
+        fputc(c, device_output);
+    else if(device_id==0xF0)
+        fputc(c, device_output);
+    else if(device_id==0xF1)
         fputc(c, device_output);
 }
 

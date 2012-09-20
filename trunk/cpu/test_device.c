@@ -14,7 +14,8 @@
 #include"cpu.h"
 int test_device(int device_id)
 {
-    if(device_id==0xF1)
+    
+    if(device_id==0x04)
     {
         if(device_input != NULL)
         {
@@ -26,6 +27,20 @@ int test_device(int device_id)
     else if(device_id==0x05)
     {
         if(device_output != NULL)
+            return 0b100;
+        else
+            return 0b001;
+    }
+    else if(device_id==0xF0)
+    {
+        if(device_loader != NULL)
+            return 0b100;
+        else
+            return 0b001;
+    }
+    else if(device_id==0xF1)
+    {
+        if(device_assambler != NULL)
             return 0b100;
         else
             return 0b001;
