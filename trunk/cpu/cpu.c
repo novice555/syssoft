@@ -12,10 +12,11 @@
 /*function init*/
 int cpu(void);
 void fetch_decode(void);
-void execute(void);
+int execute(void);
 void savememory(void);
 void register_overflow(void);
-int file_device_init(int device_id);
+int file_device_init(void);
+int test_device(int device_id);
 int read_device(int device_id);
 void write_device(int device_id, int c);
 int load_mem(unsigned char *num, int mode);
@@ -34,7 +35,8 @@ FILE *device_input, *device_output;
 int cpu(void)
 {
     int i;
-    
+    char a;
+    file_device_init();
     while(rpc<MAX_ADDRESS-1)
     {
         fetch_decode();
@@ -42,9 +44,14 @@ int cpu(void)
         execute();
         register_overflow();
     }
+    file_device_close();
+    
+    if(device_output==NULL)
+        printf("asdasasdasdasd\n");
     savememory();
     return 0;
 }
+
 void register_overflow(void)
 {
     ra &= 0xFFFFFF;

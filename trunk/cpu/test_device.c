@@ -12,12 +12,11 @@
 */  
 #include<stdio.h>
 #include"cpu.h"
-int file_device_init(int device_id)
+int test_device(int device_id)
 {
     if(device_id==0xF1)
     {
-        fclose(device_input);
-        if((device_input = fopen("out.obj","r+"))!=NULL)
+        if(device_input != NULL)
         {
             return 0b100;
         }
@@ -26,8 +25,7 @@ int file_device_init(int device_id)
     }
     else if(device_id==0x05)
     {
-        fclose(device_output);
-        if((device_output = fopen("write_device.txt","r+"))!=NULL)
+        if(device_output != NULL)
             return 0b100;
         else
             return 0b001;
@@ -35,4 +33,3 @@ int file_device_init(int device_id)
     else
         return 0b001;
 }
-

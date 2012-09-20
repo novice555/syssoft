@@ -1,6 +1,9 @@
+/*
+* Error 10: opcode not found
+*/
 #include<stdio.h>
 #include"cpu.h"
-void execute(void)
+int execute(void)
 {
     long long tmp;
     int cmp;
@@ -128,7 +131,7 @@ void execute(void)
 
         //td
         case 0xE0:
-            rsw = file_device_init(memory[path]);
+            rsw = test_device(memory[path]);
             break;
         //rd
         case 0xD8:
@@ -140,6 +143,7 @@ void execute(void)
             break;
         default: 
             printf("CPU Error: Could not found opcode\n");
+            return 10;
             break;
     }
 }
