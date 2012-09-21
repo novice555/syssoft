@@ -18,3 +18,4 @@ extern int N_Symbol;
 extern char ProgramName[Maxlength];
 extern int ProgramLength;
 extern FILE *fptr;
+extern char Value_Object_Code[MaxArray][Maxlength];

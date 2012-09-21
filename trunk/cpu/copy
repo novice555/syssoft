@@ -1,0 +1,2 @@
+../assambler/a.out $1
+cp ../assambler/code.mac bsl.mac

@@ -12,13 +12,11 @@ int load_bsl(void)
     int x, entry, i, len, tmp, count;
     fp = fopen("bsl.mac","r");
     fscanf(fp,"%s", buffer);
+    pEnd = &buffer[3];
     x = strtol(buffer,&pEnd,16);
     fscanf(fp,"%s", buffer);
-    entry = strtol(buffer, &pEnd,16);
-    printf("%X\n",entry);
-    fscanf(fp,"%s", buffer);
     len = strlen(buffer);
-    printf("length: string: %d program_length:%d\n", len, len/2);
+    printf("start address: %04X length: string: %d program_length:%d\n", x, len, len/2);
 //    printf("%s", buffer);
     count = 0;
     printf("");
@@ -36,5 +34,6 @@ int load_bsl(void)
         memory[x+count] = tmp;
         count++;
     }
-    rpc = entry;
+    printf("%X\n",x);
+    rpc = x;
 }

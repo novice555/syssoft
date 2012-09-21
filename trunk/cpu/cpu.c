@@ -8,6 +8,7 @@
 
 #include<stdio.h>
 #include"cpu.h"
+#include<stdlib.h>
 
 /*function init*/
 int cpu(void);
@@ -17,7 +18,7 @@ void fetch_decode(void);
 int execute(void);
 void savememory(void);
 void register_overflow(void);
-int file_device_init(void);
+int init(void);
 int test_device(int device_id);
 int read_device(int device_id);
 void write_device(int device_id, int c);
@@ -37,15 +38,19 @@ int debug = 1;
 
 int cpu(void)
 {
-    char check = 0;
-    file_device_init();
+    char buff_debug[20] = "";
+    int count, debug_count,check =  1;
+    if(init())
+        return (1);
+    init();
     load_bsl();
     while(rpc<MAX_ADDRESS-1)
     {
         fetch_decode();
         rpc += 3;
-        if(check == 0)
-           check = debug_mode(1);
+       debug_mode(1);
+        //if(rpc==0x7100)
+        //    check = 1;
         if(execute())
         {
             savememory();

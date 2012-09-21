@@ -51,14 +51,22 @@ int debug_mode(int mode)
     printf("instruction= %02X %02X %02X\n", memory[rpc-3], memory[rpc-2], memory[rpc-1]);
     printf("opcode name= %s\n", inst_name);
     printf("opcode= %02X xbit= %d address= %04X path= %04X\n", opcode, xbit, address, path);
-    printf("memory[path]= %02X %02X %02X\n\n", memory[path], memory[path+1], memory[path+2]);
-    char input[100];
-    do
+    printf("memory[path] = %02X %02X %02X\n", memory[path], memory[path+1], memory[path+2]);
+
+    static int stop1=0, count=0, debug_count=1;
+    char buff_debug[20];
+    if(rpc==0x48)
+        stop1 = 1;
+    if(count>=debug_count&&stop1)
     {
-        scanf("%s", input);
-        if(input[0]=='e')
-            return 1;
+        scanf("%s",buff_debug);
+        debug_count =(int) atol(buff_debug);
+        if(buff_debug[0]=='e')
+           count = -0xFFFFFF;
+        else
+           count = 1;
     }
-    while(input[0]!='1');
+    else
+        count++;
     return 0;
 }

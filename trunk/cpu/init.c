@@ -12,19 +12,19 @@
 */  
 #include<stdio.h>
 #include"cpu.h"
-int file_device_init(void)
+int init(void)
 {
-    int check=0;
-    if((device_input = fopen("code.o","r+"))==NULL)
-        check = 1;
-    if((device_output = fopen("output.txt","r+"))==NULL)
-        check = 1;
-    if((device_loader = fopen("loader.mac","r+"))==NULL)
-        check = 1;
-    return check;
+    device_input = fopen("code.o","r+");
+    device_output = fopen("output.txt","r+");
+    device_loader = fopen("loader.mac","r+");
+    device_assambler = fopen("code.o.mac","r+");
+    if(device_input==NULL || device_output==NULL || device_loader==NULL|| device_assambler)
+        return 1;
+    else
+        return 0;
 }
 
-int file_device_close(void)
+int deinit(void)
 {
     fclose(device_input);
     fclose(device_output);

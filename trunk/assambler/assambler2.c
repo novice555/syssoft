@@ -273,10 +273,50 @@ void Get_Object_Code( assambly list[],int N_Instruction ){
 	Write_Object_File();
 	
 }
-
+int To_Machine(void) {
+	FILE *Machine_File;
+	Machine_File = fopen("code.mac", "w");
+	if( Machine_File == NULL ){
+		printf("Cannot Open File.\n");
+		return 0;
+    }
+    long a = Get_Object_Code_Format(list[0].Parameter);
+    fprintf(Machine_File, "%04lXH\n", a);
+    int i,j,loop;
+	for(i = 1; i < N_Instruction - 1 ; i++){
+        if(strcmp(Value_Object_Code[i],"RES")==0){
+            loop = atoi(list[i].Parameter);
+            for(j = 1; j <= loop; j++){
+                fprintf(Machine_File, "000000");
+            }
+        } else {
+            fprintf(Machine_File, "%s", Value_Object_Code[i]);
+        }
+    }
+    fclose(Machine_File);
+}
+int Check_Parameter(void) {
+    int i;
+    for(i=0 ; i < N_Instruction; i++){
+        if(Get_Object_Code_Format(list[i].Parameter)==-1){
+            printf("Error : Could not found Symbol Line %d\n", i+1);
+            return 1;
+        }
+    }
+    return 0;
+}
 int assambler_passtwo(void) {
 	//__Init__();
+    int i;
+    //if(Check_Parameter() == 1){
+    //    return 0;
+    //}
+
 	Get_Object_Code( list, N_Instruction );
+    To_Machine();
+    for(i=0; i<N_Instruction; i++) {
+        printf("%d %s\n",i+1, Value_Object_Code[i]);
+    }
     //getch();
     return 0;
 }
