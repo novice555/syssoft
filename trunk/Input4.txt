@@ -1,0 +1,8 @@
+ADDER START 1200H
+MAIN    LDA A
+    ADD B
+    STA C
+C   RESW    1
+A   WORD    1000
+B   WORD    55
+    END MAIN

@@ -14,14 +14,19 @@
 #include"cpu.h"
 int init(void)
 {
-    device_input = fopen("code.o","r+");
+    device_input = fopen("input.txt","r+");
     device_output = fopen("output.txt","r+");
     device_loader = fopen("loader.mac","r+");
-    device_assambler = fopen("code.o.mac","r+");
-    if(device_input==NULL || device_output==NULL || device_loader==NULL|| device_assambler)
+    device_assambler = fopen("code.o","r+");
+    if(device_input==NULL )
         return 1;
-    else
-        return 0;
+    if(device_output==NULL) 
+        return 2;
+    if(device_loader==NULL) 
+        return 3;
+    if(device_assambler==NULL)
+        return 4;
+    return 0;
 }
 
 int deinit(void)

@@ -38,23 +38,28 @@ int debug = 1;
 
 int cpu(void)
 {
-    char buff_debug[20] = "";
+    char buff_debug[20] = "", e = 0;
+    char str[20000];
     int count, debug_count,check =  1;
-    if(init())
-        return (1);
-    init();
+    e = init();
+ //   e = 1;
+   // fscanf(device_loader,"%s",str);
+   // printf("%s\n",str);
+    if(e)
+        return e;
     load_bsl();
+    savememory();
     while(rpc<MAX_ADDRESS-1)
     {
         fetch_decode();
         rpc += 3;
-       debug_mode(1);
+        debug_mode(1);
         //if(rpc==0x7100)
         //    check = 1;
         if(execute())
         {
             savememory();
-            return 1;
+            return 5;
         }
         register_overflow();
     }

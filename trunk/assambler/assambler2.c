@@ -278,29 +278,42 @@ int To_Machine(void) {
 	Machine_File = fopen("code.mac", "w");
 	if( Machine_File == NULL ){
 		printf("Cannot Open File.\n");
-		return 0;
+		return 1;
     }
     long a = Get_Object_Code_Format(list[0].Parameter);
     fprintf(Machine_File, "%04lXH\n", a);
     int i,j,loop;
 	for(i = 1; i < N_Instruction - 1 ; i++){
         if(strcmp(Value_Object_Code[i],"RES")==0){
-            loop = atoi(list[i].Parameter);
+            loop = Get_Object_Code_Format(list[i].Parameter);
+            if(strcmp(list[i].Mnemonic,"RESW")==0){
+                loop *= 3;
+            }
             for(j = 1; j <= loop; j++){
-                fprintf(Machine_File, "000000");
+                fprintf(Machine_File, "00");
             }
         } else {
             fprintf(Machine_File, "%s", Value_Object_Code[i]);
         }
     }
     fclose(Machine_File);
+    return 0;
 }
 int Check_Parameter(void) {
     int i;
+    char strcheck[100] = "";
     for(i=0 ; i < N_Instruction; i++){
-        if(Get_Object_Code_Format(list[i].Parameter)==-1){
-            printf("Error : Could not found Symbol Line %d\n", i+1);
-            return 1;
+        if(strcmp(list[i].Mnemonic,"BYTE")==0||strcmp(list[i].Mnemonic,"RSUB")==0){
+            continue;
+        }
+        strcpy(strcheck, list[i].Mnemonic);
+        
+        if(Get_Object_Code_Format(strcheck)==-1){
+        
+            if(Check_Num(strcheck)!=-1){
+                printf("%d %s\n",i , list[i].Parameter);
+                return 1;
+            }
         }
     }
     return 0;
@@ -308,13 +321,13 @@ int Check_Parameter(void) {
 int assambler_passtwo(void) {
 	//__Init__();
     int i;
-    //if(Check_Parameter() == 1){
-    //    return 0;
-    //}
+    if(Check_Parameter() == 1){
+        return 0;
+    }
 
 	Get_Object_Code( list, N_Instruction );
     To_Machine();
-    for(i=0; i<N_Instruction; i++) {
+    for(i=1; i<N_Instruction - 1; i++) {
         printf("%d %s\n",i+1, Value_Object_Code[i]);
     }
     //getch();

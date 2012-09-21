@@ -6,7 +6,9 @@
 * return 3 : Error: Cannot find END
 * return 4 : Error: Duplicated Symbol
 * return 5 : Error: Mnemonic not found
-* return 6 : Cannot Open file
+* return 6 : Error: Cannot Open file
+* return 7 : Error: Parameter Not Correct Format //not finish
+* return 8 : Error: Load Address is lower than 0x1000
 * check syntax:
 * blank line, comment line
 * fix BYTE format C'blah..3' X'F..F'
@@ -53,7 +55,8 @@ int assambler_passone(char *asm_name)
         StartAddress = StrToInt(list[0].Parameter);
         RunAddress = StartAddress;
         list[0].Address = StartAddress;
-     
+    //    if(StartAddress<0x1000)
+    //        return 8;
         
     }
     else
@@ -61,7 +64,7 @@ int assambler_passone(char *asm_name)
         
     while(file_readline(line_buffer))
     {
-        printf("%s",line_buffer);
+        //printf("%s",line_buffer);
         split_assambly(line_buffer, RunAddress);
         if(strcmp(list[N_Instruction-1].Mnemonic,"END")==0)
             break;
@@ -88,12 +91,14 @@ int assambler_passone(char *asm_name)
 
     ProgramLength = StrToInt(list[N_Instruction-1].Parameter) - StrToInt(list[0].Parameter);
     int j;
+    printf("-------- to PassII -------\n");
     for(j=0; j<N_Instruction; j++)
         printf("%d\t%s\t%s\t%s\t%04X\t\n",j+1,list[j].Symbol,list[j].Mnemonic, list[j].Parameter, list[j].Address);
-    printf("%d\n", N_Instruction);
+    //printf("%d\n", N_Instruction);
+    printf("-------- Symbol Table --------\n");
     for(j=0; j<N_Symbol; j++)
         printf("%s\t%X\t\n", SymbolTable[j].name, SymbolTable[j].value);
-    printf("%d %d\n",N_Instruction,N_Symbol);
+    printf("Instruction Count: %d Symbol Count: %d\n",N_Instruction,N_Symbol);
         
     return 0;
 
@@ -112,3 +117,4 @@ int file_readline(char *buffer)
     else
         return 0;
 }
+
